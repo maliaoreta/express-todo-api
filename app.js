@@ -1,6 +1,7 @@
 var express = require('express'),
     app = express(),
-    bodyParser = require('body-parser');
+    bodyParser = require('body-parser'),
+    score = require('./routes/score.js');
 
 
 app.use(bodyParser.json());
@@ -21,11 +22,14 @@ app.get('/buzzwords', function (req, res) {
 
 app.post('/reset', function (req, res) {
 
-  // NEEDS TO RESET EVERYTHING ON DELETE
+  score = 0;
+  buzzwordContent.splice(0);
+  res.json({
+    success: true
+  })
 })
 
 app.use('/buzzword', buzzwordsRoute);
-
 
 var server = app.listen(8080, function () {
 
