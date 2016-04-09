@@ -1,15 +1,22 @@
 var express = require('express'),
     buzzwordContent = require('./buzzwordContents.js'),
     router = express.Router(),
-    bodyParser = require('body-parser');
+    bodyParser = require('body-parser'),
+    score = require('./score.js');
 
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({extended: true}));
 
-var score = 0;
+
 
 router.route('/')
   .post(function (req, res) {
+
+    if (buzzwordContent.length === 5) {
+
+      res.send('Sorry! Only 5 words allowed!')
+      return;
+    }
 
     var reqBody = req.body;
     var buzzWordObj = {
@@ -32,22 +39,26 @@ router.route('/')
 
       if (obj.buzzWord === reqBody.buzzWord) {
 
-        obj.heard = true;
-        score += Number(obj.score);
+        if (obj.heard === false) {
+          obj.heard = true;
+          score += Number(obj.score);
 
+          return res.json({
+            success: true,
+            newScore: score
+          });
+        }
+        else {
+          return res.send('You\'ve already heard that word!');
+        }
       }
     })
 
-    return res.json({
-      success: true,
-      newScore: score
-    });
   })
   .delete(function (req, res) {
 
     var reqBody = req.body;
     var buzzIndex;
-    console.log('reqBody', reqBody);
 
     buzzwordContent.forEach(function (obj) {
 
