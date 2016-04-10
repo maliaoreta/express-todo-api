@@ -1,35 +1,33 @@
 var express = require('express'),
     app = express(),
     bodyParser = require('body-parser'),
-    score = require('./routes/score.js');
+    score = require('./routes/score.js'),
+    buzzwordArr = require('./routes/buzzwordContents');
 
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
-// routes
+// /buzzword route
 var buzzwordsRoute = require('./routes/buzzwords');
-var buzzwordContent = require('./routes/buzzwordContents');
 
 app.use(express.static('public'));
 
 app.get('/buzzwords', function (req, res) {
   
-   res.json({
-    buzzWords: buzzwordContent
+   return res.json({
+    buzzWords: buzzwordArr
   })
 })
-
-app.post('/reset', function (req, res) {
+.post('/reset', function (req, res) {
 
   score = 0;
-  buzzwordContent.splice(0);
-  res.json({
+  buzzwordArr.splice(0);
+  return res.json({
     success: true
   })
 })
-
-app.use('/buzzword', buzzwordsRoute);
+.use('/buzzword', buzzwordsRoute);
 
 var server = app.listen(8080, function () {
 
@@ -37,4 +35,4 @@ var server = app.listen(8080, function () {
   var port = server.address().port;
 
   console.log('Listening on 8080');
-})
+});
