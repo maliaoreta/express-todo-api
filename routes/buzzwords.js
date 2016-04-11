@@ -2,13 +2,14 @@ var express = require('express'),
     buzzwordArr = require('./buzzwordContents.js'),
     router = express.Router(),
     bodyParser = require('body-parser'),
-    score = require('./score.js');
+    score = require('./score.js'),
+    validations = require('./validations.js');
 
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({extended: true}));
 
 router.route('/')
-  .post(function (req, res) {
+  .post(validations(['buzzWord', 'points']), function (req, res) {
 
     if (buzzwordArr.length === 5) {
 
@@ -28,7 +29,7 @@ router.route('/')
       success: true
     });
   })
-  .put(function (req, res) {
+  .put(validations(['buzzWord', 'heard']),function (req, res) {
 
     var reqBody = req.body;
     if (buzzwordArr.length === 0) {
@@ -50,7 +51,7 @@ router.route('/')
 
     return res.status(400).send('That buzzword doesn\'t exist!');
   })
-  .delete(function (req, res) {
+  .delete(validations(['buzzWord']), function (req, res) {
 
     var reqBody = req.body;
     var buzzIndex;
