@@ -1,9 +1,9 @@
 var express = require('express'),
-    buzzwordArr = require('./buzzwordContents.js'),
     router = express.Router(),
     bodyParser = require('body-parser'),
-    score = require('./score.js'),
-    validations = require('./validations.js');
+    buzzwordArr = require('./../model/buzzwordContents.js'),
+    score = require('./../model/score.js'),
+    validations = require('./../middleware/validations.js');
 
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({extended: true}));
