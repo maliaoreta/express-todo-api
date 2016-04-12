@@ -36,3 +36,14 @@ describe('PUT /buzzword', function () {
       .expect(200, done);
   });
 });
+
+describe('DELETE /buzzword', function () {
+
+  it('should delete a buzzword from the collection', function (done) {
+
+    request(app)
+      .delete('/buzzword')
+      .send({ buzzWord: 'Hello' })
+      .expect(200, done);
+  })
+})
