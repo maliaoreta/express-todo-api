@@ -18,5 +18,11 @@
   "homepage": "https://github.com/maliaoreta/express-todo-api#readme",
   "dependencies": {
     "express": "^4.13.4"
+  },
+  "directories": {
+    "test": "test"
+  },
+  "devDependencies": {
+    "mocha": "^2.4.5"
   }
 }
