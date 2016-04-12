@@ -45,5 +45,16 @@ describe('DELETE /buzzword', function () {
       .delete('/buzzword')
       .send({ buzzWord: 'Hello' })
       .expect(200, done);
-  })
-})
+  });
+});
+
+describe('POST /reset', function () {
+
+  it('should reset the score to 0, and the buzzword collection to be empty', function (done) {
+
+    request(app)
+      .post('/reset')
+      .send({ reset: true })
+      .expect(200, done);
+  });
+});
