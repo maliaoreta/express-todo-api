@@ -4,6 +4,16 @@ var bodyParser = require('body-parser');
 
 app.use(bodyParser.urlencoded({ extended : true }));
 
+describe('GET /', function () {
+
+  it('should respond with index.html', function (done) {
+
+    request(app)
+      .get('/')
+      .expect(200, done);
+  })
+})
+
 describe('GET /buzzwords', function () {
 
   it('should respond with json', function (done) {
